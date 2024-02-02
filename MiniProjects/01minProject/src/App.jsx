@@ -11,6 +11,7 @@ function App() {
       .then((res) => res.json())
       .then((data) => {
         setFacts(data.fact);
+          console.log(data);
       });
   }
 

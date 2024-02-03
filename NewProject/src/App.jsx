@@ -6,6 +6,8 @@ function App(){
         <div  >
             <NavbarSection name="My name is React" age={11}  />
             <NavbarSection name="My name is React" age={11}  />
+            <NavbarSection name="My name is React" age={11}  />
+            <HeroSection/>
             <HeroSection/>
             <HeroSection/>
         </div>

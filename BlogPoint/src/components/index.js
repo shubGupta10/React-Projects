@@ -9,5 +9,6 @@ export {
     Footer,
     Container,
     Logo,
-    LogoutBtn
+    LogoutBtn,
+    RTE
 }

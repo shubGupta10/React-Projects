@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { Button, Input, Select, RTE } from "../index";
 import appwriteService from "../../appwrite/configTwo";
 import { Navigate, useNavigate } from "react-router-dom";
-import { UseSelector, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 function PostForm({ post }) {
   const { register, handleSubmit, watch, setValue, control, getValues } =
@@ -41,14 +41,12 @@ function PostForm({ post }) {
             data.featuredImage = fileId
             const dbPost = await appwriteService.createPost({
                 ...data,
-                userId: userData.$id,
+                userId: userData.$id});
 
-            })
             if (dbPost) {
-                navigate(`/post/${dbPost.$id}`)
+                navigate(`/post/${dbPost.$id}`);
             }
-        }
-      } 
+        } 
     }
   }
 
@@ -128,7 +126,7 @@ function PostForm({ post }) {
             </div>
         </form>
     );
-
+}
 
 
 export default PostForm;

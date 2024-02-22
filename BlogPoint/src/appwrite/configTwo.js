@@ -1,4 +1,4 @@
-import config from "../config/config"
+import config from '../config/config.js';
 import { Client,  ID, Databases, Storage, Query } from "appwrite";
 
 
@@ -10,7 +10,7 @@ export class Service{
     constructor(){
         this.client
         .setEndpoint(config.appwriteUrl)
-        .setProject(config.appwriteProjectID);
+        .setProject(config.appwriteProjectId);
         this.databases = new Databases(this.client);
         this.bucket = new Storage(this.client);
     }
@@ -21,8 +21,8 @@ export class Service{
     async createPost({title, slug, content, featuredImage, status, userId}){
         try {
             await this.databases.createDocument(
-                config.appwriteDatabaseID,
-                config.appwriteCollectionID, 
+                config.appwriteDatabaseId,
+                config.appwriteCollectionId, 
                 slug, //yha hum slug le rhe h documentID ki jagah
                       //slug se hi har ek post matlb documentID hoga means slug hame uss post ka ek documentID dega taaki hum uss post ko pehchan sake ki kaun se post hai, ye hum update waale me krenge better tarike se
                 {
@@ -45,8 +45,8 @@ export class Service{
     {
 
         try {
-            config.appwriteDatabaseID, //ye database id lega
-            config.appwriteCollectionID, //collection id bhi lega
+            config.appwriteDatabaseId, //ye database id lega
+            config.appwriteCollectionId, //collection id bhi lega
             slug, //ye lega taaki post pehchan sake
             {
                 title,
@@ -65,8 +65,8 @@ export class Service{
     async deletePost({slug}){
         try {
             await this.databases.deleteDocument(
-                config.appwriteDatabaseID,
-                config.appwriteCollectionID,
+                config.appwriteDatabaseId,
+                config.appwriteCollectionId,
                 slug
             )
             return true
@@ -82,8 +82,8 @@ export class Service{
     async getPost({slug}){
         try {
             return await this.databases.getDocument(
-                config.appwriteDatabaseID,
-                config.appwriteCollectionID,
+                config.appwriteDatabaseId,
+                config.appwriteCollectionId,
                 slug
             )
         } catch (error) {
@@ -97,8 +97,8 @@ export class Service{
     async getPosts(queries = [Query.equal("status", "active")]){
         try {
             return await this.databases.listDocuments(
-                config.appwriteDatabaseID,
-                config.appwriteCollectionID,
+                config.appwriteDatabaseId,
+                config.appwriteCollectionId,
                 queries,
             )
         } catch (error) {
@@ -116,8 +116,8 @@ export class Service{
     async uploadFile(file){
         try {
             return await this.bucket.createFile(
-                config.appwriteBucketID,
-                ID.unique,
+                config.appwriteBucketId,
+                ID.unique(),
                 file
             )
         } catch (error) {
@@ -132,7 +132,7 @@ export class Service{
     async deleteFile(fileId){
         try {
             await this.bucket.deleteFile(
-                config.appwriteBucketID,
+                config.appwriteBucketId,
                 fileId
             )
             return true;
@@ -147,7 +147,7 @@ export class Service{
     // user can preview the file.
     getFilePreview(fileId){
         return this.bucket.getFilePreview(
-            config.appwriteBucketID,
+            config.appwriteBucketId,
             fileId
         )
     }

@@ -20,7 +20,7 @@ export class Service{
     //we use createDocument() for this.
     async createPost({title, slug, content, featuredImage, status, userId}){
         try {
-            await this.databases.createDocument(
+            return await this.databases.createDocument(
                 config.appwriteDatabaseId,
                 config.appwriteCollectionId, 
                 slug, //yha hum slug le rhe h documentID ki jagah
@@ -45,6 +45,7 @@ export class Service{
     {
 
         try {
+            return await this.databases.updateDocument(
             config.appwriteDatabaseId, //ye database id lega
             config.appwriteCollectionId, //collection id bhi lega
             slug, //ye lega taaki post pehchan sake
@@ -54,6 +55,7 @@ export class Service{
                 featuredImage, 
                 status,
             }
+            )
         } catch (error) {
             console.log("appwrite service :: updatePost :: error" , error);
         }
@@ -62,7 +64,7 @@ export class Service{
 
     //now we are creating to delete the post
     //yha hum bs slug lenge
-    async deletePost({slug}){
+    async deletePost(slug){
         try {
             await this.databases.deleteDocument(
                 config.appwriteDatabaseId,
@@ -79,7 +81,7 @@ export class Service{
 
     //when we want a single post to work on
 
-    async getPost({slug}){
+    async getPost(slug){
         try {
             return await this.databases.getDocument(
                 config.appwriteDatabaseId,
